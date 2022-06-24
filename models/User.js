@@ -1,4 +1,5 @@
-const mongoose=require('mongoose')
+const mongoose=require('mongoose');
+const CostSchema = require('./Cost').schema;
 const UserSchema=mongoose.Schema({
     name:{
         type:String,
@@ -12,6 +13,9 @@ const UserSchema=mongoose.Schema({
         type:Number,
         required:true
     },
+    expensesList:{
+        type:[CostSchema]
+    }
 }, {
     timestamps:true
 });

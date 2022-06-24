@@ -19,4 +19,8 @@ const CostsSchema=mongoose.Schema({
 }, {
     timestamps:true
 });
-module.exports=mongoose.model('Cost',CostsSchema)
+module.exports={
+    model:mongoose.model('Cost',CostsSchema) ,
+    schema:CostsSchema
+
+}
