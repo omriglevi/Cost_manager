@@ -9,6 +9,14 @@ module.exports ={
             console.log(error);
         }
     },
+    async getUserExpensesSortedByCategory (){ 
+        try {
+           const user= await axios.get('http://localhost:3001/', {params:{'user_id':'62b488e4f92eeb2a3c5849a6','orginized':''}});
+           return user.data.expensesList ;
+        } catch (error) {
+            console.log(error);
+        }
+    },
     async addCost(costObj){
         // console.log(JSON.stringify(paramsObj));
         const cost=await axios.post('http://localhost:3001/',{'cost': costObj})

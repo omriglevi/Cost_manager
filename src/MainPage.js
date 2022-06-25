@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import { AddUserComp } from "./AddUserComp";
 import clientAPI from "./clentAPI/clientAPI";
 import { CostTable } from "./CostTable";
@@ -15,6 +15,11 @@ export function MainPage(props){
     //   return
     // }
     // setExpenses([])
+   }
+
+   const onSortingByCategory =async ()=>{
+        const data = await clientAPI.getUserExpensesSortedByCategory()
+        setExpenses(data)
    }
 
   const fillStateExpenses=async ()=>{
@@ -38,6 +43,11 @@ export function MainPage(props){
         <Container>
         <Row className="inputForm">
            <AddUserComp  noticeParentForChange={letChildChangeParentState} expenses={expenses}/>
+           </Row>
+           <Row>
+            <Col>
+            <Button onClick={onSortingByCategory}> Sort By Category</Button>
+            </Col>
            </Row>
             <Row>
                <CostTable noticeParentForChange={letChildChangeParentState} expenses={expenses}/>
