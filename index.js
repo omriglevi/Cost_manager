@@ -3,7 +3,7 @@ require('dotenv').config();
 const express = require('express');
 const db = require('./databases/db')
 const cors = require('cors');
-const router = require('./routers/cost_manager');
+const costManagerRouter = require('./routers/cost_manager');
 const mongoString = process.env.DB_URL;
 const port = process.env.PORT || 3001
 
@@ -11,7 +11,7 @@ const port = process.env.PORT || 3001
 const app = express();
 app.use(cors());
 app.use(express.json());
-app.use('/',  router);
+app.use('/',  costManagerRouter);
 db.connect(mongoString)
 .then(()=>console.log("Connected to DB"))
 .then(()=>{

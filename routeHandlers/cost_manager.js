@@ -1,12 +1,20 @@
 const { updateCost } = require("../controllers/cost")
 const { createCostAndAddToUser, removeCostFromUser } = require("../controllers/cost_manager")
-const { getUser } = require("../controllers/user")
+const { getUser, getCostsOrginizedByCategory, getCostsByDateLimit } = require("../controllers/user")
 
 module.exports={
     getRequestHandler : async (req, res)=>{
         try {
+            let user ={}
             const user_id = req.query.user_id
-        const user = await getUser(user_id)
+            if('orginized' in req.query ){
+                 user = await getCostsOrginizedByCategory(user_id)
+                 return res.status(200).send(user)
+            }
+            else{
+                user = await getUser(user_id) 
+            }
+        
         return res.status(200).send(user)
         } catch (error) {
             console.log(error.message);
@@ -15,6 +23,17 @@ module.exports={
         
 
     },
+    getReportHandler : async (req, res)=>{
+        const user_id = req.query.user_id
+        const year = req.query.year
+        const month = req.query.month
+        try {
+        const documents =  await getCostsByDateLimit(user_id, {month, year})
+        return res.status(200).send(documents)
+        } catch (error) {
+            return res.status(400).send(error.message)
+        }
+      },
     postRequestHandler : async (req, res)=>{
         try {
              const cost = req.body.cost
