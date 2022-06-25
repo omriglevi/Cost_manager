@@ -1,4 +1,3 @@
-const Cost = require("../models/Cost").model;
 const User = require("../models/User");
 const { createCost } = require("./cost");
 
